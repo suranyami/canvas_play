@@ -9,7 +9,7 @@ class Picture
     "rgb(#{@randInt(255)}, #{@randInt(255)}, #{@randInt(255)})"
 
   randRGBA: ->
-    "rgba(#{@randInt(255)}, #{@randInt(255)}, #{@randInt(255)}, #{@rand(0.5, 0.25)})"
+    "rgba(#{@randInt(255)}, #{@randInt(255)}, #{@randInt(255)}, #{@rand(1.0)})"
 
   draw: ->
     canvas = document.getElementById 'sample'
