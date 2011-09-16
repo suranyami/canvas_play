@@ -2,23 +2,33 @@
   var Picture;
   Picture = (function() {
     function Picture() {}
+    Picture.prototype.rand = function(range, min) {
+      if (min == null) {
+        min = 0;
+      }
+      return (Math.random() * range) + min;
+    };
+    Picture.prototype.randInt = function(range, min) {
+      if (min == null) {
+        min = 0;
+      }
+      return (this.rand(range, min)).toFixed(0);
+    };
+    Picture.prototype.randRGB = function() {
+      return "rgb(" + (this.randInt(255)) + ", " + (this.randInt(255)) + ", " + (this.randInt(255)) + ")";
+    };
+    Picture.prototype.randRGBA = function() {
+      return "rgba(" + (this.randInt(255)) + ", " + (this.randInt(255)) + ", " + (this.randInt(255)) + ", " + (this.rand(0.5, 0.25)) + ")";
+    };
     Picture.prototype.draw = function() {
-      var a, b, canvas, ctx, g, h, j, r, w, x, y, _results;
+      var canvas, ctx, j, _results;
       canvas = document.getElementById('sample');
       if (canvas.getContext) {
         ctx = canvas.getContext('2d');
         _results = [];
         for (j = 0; j <= 200; j++) {
-          r = (Math.random() * 255).toFixed(0);
-          g = (Math.random() * 255).toFixed(0);
-          b = (Math.random() * 255).toFixed(0);
-          a = Math.random() * 0.5 + 0.25;
-          x = (Math.random() * 800).toFixed(0) - 25;
-          y = (Math.random() * 600).toFixed(0) - 25;
-          w = (Math.random() * 50).toFixed(0);
-          h = (Math.random() * 50).toFixed(0);
-          ctx.fillStyle = "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
-          _results.push(ctx.fillRect(x, y, w, h));
+          ctx.fillStyle = this.randRGBA();
+          _results.push(ctx.fillRect(this.randInt(800, -25), this.randInt(600, -25), this.randInt(50), this.randInt(50)));
         }
         return _results;
       }
